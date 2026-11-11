@@ -4,34 +4,33 @@ class substitution {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String normal = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String coded = "QWERTYUIOPASDFGHJKLZXCVBNM";
-
         System.out.print("Enter text: ");
         String text = sc.nextLine().toUpperCase();
+
+        System.out.print("Enter key: ");
+        int key = sc.nextInt();
+        key = ((key % 26) + 26) % 26;
 
         String encrypted = "";
         String decrypted = "";
 
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
-            int pos = normal.indexOf(ch);
 
-            if (pos == -1) {
-                encrypted += ch;
+            if (ch >= 'A' && ch <= 'Z') {
+                encrypted += (char) ((ch - 'A' + key) % 26 + 'A');
             } else {
-                encrypted += coded.charAt(pos);
+                encrypted += ch;
             }
         }
 
         for (int i = 0; i < encrypted.length(); i++) {
             char ch = encrypted.charAt(i);
-            int pos = coded.indexOf(ch);
 
-            if (pos == -1) {
-                decrypted += ch;
+            if (ch >= 'A' && ch <= 'Z') {
+                decrypted += (char) ((ch - 'A' - key + 26) % 26 + 'A');
             } else {
-                decrypted += normal.charAt(pos);
+                decrypted += ch;
             }
         }
 
